@@ -1,0 +1,1 @@
+This is part of the Odin Project Javascript curriculum. The excercise focuses on creating, exporting, and importing modules, and manipulating DOM with javascript with only the bare minimum of HTML code needed.
