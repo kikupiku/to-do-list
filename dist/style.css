@@ -1,0 +1,10 @@
+body {
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+
+#project-container {
+  border: 1px solid red;
+  height: 80vh;
+  width: 30vw;
+}
