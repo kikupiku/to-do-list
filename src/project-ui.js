@@ -3,14 +3,14 @@
 import { toggleVisibility } from './visibility.js';
 import { projectFactory } from './project.js';
 
-let sampleProject = projectFactory('Sample Project', 'This is a sample project. It is nice.');
+let sampleProject = projectFactory('Unassigned',
+                      'This project contains all tasks that have not been assigned elsewhere.');
 let sampleProject2 = projectFactory('Sample Projec2', 'This is a sample project. It is nice.');
 let sampleProject3 = projectFactory('Sample Project3', 'This is a sample project. It is nice.');
 
 let projects = [sampleProject, sampleProject2, sampleProject3];
 
 const projectContainer = document.getElementById('project-container');
-console.log('hello world');
 
 function renderProjects() {
   projects.forEach((element) => {

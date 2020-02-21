@@ -94,7 +94,7 @@
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _project_ui_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./project-ui.js */ \"./src/project-ui.js\");\n\n\n// title, description, due date, priority in every todo\n\n\n\n//# sourceURL=webpack:///./src/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _project_ui_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./project-ui.js */ \"./src/project-ui.js\");\n/* harmony import */ var _task_ui_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./task-ui.js */ \"./src/task-ui.js\");\n\n\n// title, description, due date, priority in every todo\n\n\n\nObject(_project_ui_js__WEBPACK_IMPORTED_MODULE_0__[\"renderProjects\"])();\nObject(_task_ui_js__WEBPACK_IMPORTED_MODULE_1__[\"renderTasks\"])();\n\n\n//# sourceURL=webpack:///./src/index.js?");
 
 /***/ }),
 
@@ -102,11 +102,11 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _pro
 /*!***************************!*\
   !*** ./src/project-ui.js ***!
   \***************************/
-/*! exports provided: projects, sampleProject */
+/*! exports provided: projects, sampleProject, renderProjects */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"projects\", function() { return projects; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"sampleProject\", function() { return sampleProject; });\n/* harmony import */ var _visibility_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./visibility.js */ \"./src/visibility.js\");\n/* harmony import */ var _project_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./project.js */ \"./src/project.js\");\n//to determine how the project part of the screen looks\n\n\n\n\nlet sampleProject = Object(_project_js__WEBPACK_IMPORTED_MODULE_1__[\"projectFactory\"])('Sample Project', 'This is a sample project. It is nice.');\nlet sampleProject2 = Object(_project_js__WEBPACK_IMPORTED_MODULE_1__[\"projectFactory\"])('Sample Projec2', 'This is a sample project. It is nice.');\nlet sampleProject3 = Object(_project_js__WEBPACK_IMPORTED_MODULE_1__[\"projectFactory\"])('Sample Project3', 'This is a sample project. It is nice.');\n\nconsole.log(sampleProject);\n\nlet projects = [sampleProject, sampleProject2, sampleProject3];\n\nconst projectContainer = document.getElementById('project-container');\n\nprojects.forEach((element) => {\n  let projectDiv = document.createElement('div');\n  let projectTitle = document.createElement('p');\n  let projectDescription = document.createElement('p');\n\n  projectDiv.setAttribute('class', 'project-div');\n  projectTitle.setAttribute('class', 'project-title');\n  projectDescription.setAttribute('class', 'project-descr');\n\n  projectTitle.innerHTML = element.title;\n  projectDescription.innerHTML = element.description;\n\n  projectDiv.appendChild(projectTitle);\n  projectDiv.appendChild(projectDescription);\n  projectContainer.appendChild(projectDiv);\n});\n\nconst projectButton = document.getElementById('add-project');\n\nprojectButton.addEventListener('click', () => {\n  Object(_visibility_js__WEBPACK_IMPORTED_MODULE_0__[\"toggleVisibility\"])(form);\n});\n\n\n\n\n//# sourceURL=webpack:///./src/project-ui.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"projects\", function() { return projects; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"sampleProject\", function() { return sampleProject; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"renderProjects\", function() { return renderProjects; });\n/* harmony import */ var _visibility_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./visibility.js */ \"./src/visibility.js\");\n/* harmony import */ var _project_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./project.js */ \"./src/project.js\");\n//to determine how the project part of the screen looks\n\n\n\n\nlet sampleProject = Object(_project_js__WEBPACK_IMPORTED_MODULE_1__[\"projectFactory\"])('Unassigned',\n                      'This project contains all tasks that have not been assigned elsewhere.');\nlet sampleProject2 = Object(_project_js__WEBPACK_IMPORTED_MODULE_1__[\"projectFactory\"])('Sample Projec2', 'This is a sample project. It is nice.');\nlet sampleProject3 = Object(_project_js__WEBPACK_IMPORTED_MODULE_1__[\"projectFactory\"])('Sample Project3', 'This is a sample project. It is nice.');\n\nlet projects = [sampleProject, sampleProject2, sampleProject3];\n\nconst projectContainer = document.getElementById('project-container');\n\nfunction renderProjects() {\n  projects.forEach((element) => {\n    let projectDiv = document.createElement('div');\n    let projectTitle = document.createElement('p');\n    let projectDescription = document.createElement('p');\n\n    projectDiv.setAttribute('class', 'project-div');\n    projectTitle.setAttribute('class', 'project-title');\n    projectDescription.setAttribute('class', 'project-descr');\n\n    projectTitle.innerHTML = element.title;\n    projectDescription.innerHTML = element.description;\n\n    projectDiv.appendChild(projectTitle);\n    projectDiv.appendChild(projectDescription);\n    projectContainer.appendChild(projectDiv);\n  });\n}\n\nconst projectButton = document.getElementById('add-project');\n\nprojectButton.addEventListener('click', () => {\n  Object(_visibility_js__WEBPACK_IMPORTED_MODULE_0__[\"toggleVisibility\"])(form);\n});\n\n\n\n\n//# sourceURL=webpack:///./src/project-ui.js?");
 
 /***/ }),
 
@@ -119,6 +119,30 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) *
 
 "use strict";
 eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"projectFactory\", function() { return projectFactory; });\nlet projectFactory = (title, description) => {\n  let tasks = [];\n  return { title, description, tasks };\n};\n\n\n\n\n//# sourceURL=webpack:///./src/project.js?");
+
+/***/ }),
+
+/***/ "./src/task-ui.js":
+/*!************************!*\
+  !*** ./src/task-ui.js ***!
+  \************************/
+/*! exports provided: renderTasks */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"renderTasks\", function() { return renderTasks; });\n/* harmony import */ var _visibility_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./visibility.js */ \"./src/visibility.js\");\n/* harmony import */ var _task_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./task.js */ \"./src/task.js\");\n/* harmony import */ var _project_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./project.js */ \"./src/project.js\");\n/* harmony import */ var _project_ui_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./project-ui.js */ \"./src/project-ui.js\");\n\n\n\n\n\nlet sampleTask = Object(_task_js__WEBPACK_IMPORTED_MODULE_1__[\"taskFactory\"])('Test Task', 'This is a short description',\n                          '06/03/2020', 'Unassigned', 3);\n\n_project_ui_js__WEBPACK_IMPORTED_MODULE_3__[\"sampleProject\"].tasks.push(sampleTask);\nconsole.log(_project_ui_js__WEBPACK_IMPORTED_MODULE_3__[\"sampleProject\"]);\nconsole.log(_project_ui_js__WEBPACK_IMPORTED_MODULE_3__[\"projects\"]);\n\nconst taskContainer = document.getElementById('task-container');\n\nfunction renderTasks() {\n  _project_ui_js__WEBPACK_IMPORTED_MODULE_3__[\"projects\"].forEach((proj) => {\n    proj.tasks.forEach((element) => {\n      let taskDiv = document.createElement('div');\n      let taskTitle = document.createElement('p');\n      let taskDescription = document.createElement('p');\n      let taskDeadline = document.createElement('p');\n\n      taskDiv.setAttribute('class', 'task-div');\n      taskTitle.setAttribute('class', 'task-title');\n      taskDescription.setAttribute('class', 'task-descr');\n\n      taskTitle.innerHTML = element.title;\n      taskDescription.innerHTML = element.description;\n\n      taskDiv.appendChild(taskTitle);\n      taskDiv.appendChild(taskDescription);\n      taskContainer.appendChild(taskDiv);\n    });\n  });\n}\n\nlet taskColor = () => {\n  \n}\n\n\n\n\n//# sourceURL=webpack:///./src/task-ui.js?");
+
+/***/ }),
+
+/***/ "./src/task.js":
+/*!*********************!*\
+  !*** ./src/task.js ***!
+  \*********************/
+/*! exports provided: taskFactory */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"taskFactory\", function() { return taskFactory; });\n//to determine the functionality of creating tasks\n\nlet taskFactory = (title, description, deadline, project, urgency) => {\n  \n  return { title, description, deadline, project, urgency };\n};\n\n\n\n\n//# sourceURL=webpack:///./src/task.js?");
 
 /***/ }),
 

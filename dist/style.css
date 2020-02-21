@@ -4,15 +4,19 @@
   --main-font: 'Trade Winds', sans-serif;
 }
 
+body {
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+
 h1,
 h2 {
   font-family: var(--main-font);
   text-align: center;
 }
 
-body {
-  box-sizing: border-box;
-  font-family: sans-serif;
+#lists-container {
+  display: flex;
 }
 
 #project-container {
@@ -134,4 +138,9 @@ select:focus {
 .project-descr {
   font-size: 14px;
   padding-bottom: 10px;
+}
+
+#add-task {
+  margin-top: 6px;
+  margin-left: 15px;
 }
