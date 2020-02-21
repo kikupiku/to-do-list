@@ -1,8 +1,6 @@
-import { toggleVisibility } from './visibility.js';
+let projectFactory = (title, description) => {
+  let tasks = [];
+  return { title, description, tasks };
+};
 
-const projectContainer = document.getElementById('project-container');
-const projectButton = document.getElementById('add-project');
-
-projectButton.addEventListener('click', () => {
-  toggleVisibility(form);
-});
+export { projectFactory };

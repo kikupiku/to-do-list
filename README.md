@@ -1,1 +1,3 @@
-This is part of the Odin Project Javascript curriculum. The excercise focuses on creating, exporting, and importing modules, and manipulating DOM with javascript with only the bare minimum of HTML code needed.
+This is part of the Odin Project Javascript curriculum. 
+
+The excercise aims at practicing modules, factory functions, SOLID rules, and other aspects of Object Oriented Programming.

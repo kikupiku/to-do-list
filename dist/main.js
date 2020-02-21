@@ -90,10 +90,47 @@
 /*!**********************!*\
   !*** ./src/index.js ***!
   \**********************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-eval("\n\n// title, description, due date, priority in every todo\n\n\n//# sourceURL=webpack:///./src/index.js?");
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _project_ui_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./project-ui.js */ \"./src/project-ui.js\");\n\n\n// title, description, due date, priority in every todo\n\n\n\n//# sourceURL=webpack:///./src/index.js?");
+
+/***/ }),
+
+/***/ "./src/project-ui.js":
+/*!***************************!*\
+  !*** ./src/project-ui.js ***!
+  \***************************/
+/*! exports provided: projects, sampleProject */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"projects\", function() { return projects; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"sampleProject\", function() { return sampleProject; });\n/* harmony import */ var _visibility_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./visibility.js */ \"./src/visibility.js\");\n/* harmony import */ var _project_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./project.js */ \"./src/project.js\");\n//to determine how the project part of the screen looks\n\n\n\n\nlet sampleProject = Object(_project_js__WEBPACK_IMPORTED_MODULE_1__[\"projectFactory\"])('Sample Project', 'This is a sample project. It is nice.');\nlet sampleProject2 = Object(_project_js__WEBPACK_IMPORTED_MODULE_1__[\"projectFactory\"])('Sample Projec2', 'This is a sample project. It is nice.');\nlet sampleProject3 = Object(_project_js__WEBPACK_IMPORTED_MODULE_1__[\"projectFactory\"])('Sample Project3', 'This is a sample project. It is nice.');\n\nconsole.log(sampleProject);\n\nlet projects = [sampleProject, sampleProject2, sampleProject3];\n\nconst projectContainer = document.getElementById('project-container');\n\nprojects.forEach((element) => {\n  let projectDiv = document.createElement('div');\n  let projectTitle = document.createElement('p');\n  let projectDescription = document.createElement('p');\n\n  projectDiv.setAttribute('class', 'project-div');\n  projectTitle.setAttribute('class', 'project-title');\n  projectDescription.setAttribute('class', 'project-descr');\n\n  projectTitle.innerHTML = element.title;\n  projectDescription.innerHTML = element.description;\n\n  projectDiv.appendChild(projectTitle);\n  projectDiv.appendChild(projectDescription);\n  projectContainer.appendChild(projectDiv);\n});\n\nconst projectButton = document.getElementById('add-project');\n\nprojectButton.addEventListener('click', () => {\n  Object(_visibility_js__WEBPACK_IMPORTED_MODULE_0__[\"toggleVisibility\"])(form);\n});\n\n\n\n\n//# sourceURL=webpack:///./src/project-ui.js?");
+
+/***/ }),
+
+/***/ "./src/project.js":
+/*!************************!*\
+  !*** ./src/project.js ***!
+  \************************/
+/*! exports provided: projectFactory */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"projectFactory\", function() { return projectFactory; });\nlet projectFactory = (title, description) => {\n  let tasks = [];\n  return { title, description, tasks };\n};\n\n\n\n\n//# sourceURL=webpack:///./src/project.js?");
+
+/***/ }),
+
+/***/ "./src/visibility.js":
+/*!***************************!*\
+  !*** ./src/visibility.js ***!
+  \***************************/
+/*! exports provided: toggleVisibility */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"toggleVisibility\", function() { return toggleVisibility; });\n//toggle visibility of forms\n\nconst toggleVisibility = (element) => {\n  if (element.style.display === 'block') {\n    element.style.display = 'none';\n  } else {\n    element.style.display = 'block';\n  }\n};\n\n\n\n\n//# sourceURL=webpack:///./src/visibility.js?");
 
 /***/ })
 
