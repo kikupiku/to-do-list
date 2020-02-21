@@ -3,14 +3,63 @@
 <head>
   <meta charset="UTF-8">
   <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css?family=Trade+Winds&display=swap" rel="stylesheet">
   <title>TO GET DONE</title>
 </head>
+
+
 <body>
+
+  <div id="project-form-container" class="form-container">
+    <label for="project-name">
+      Project name<br>
+      <input type="text" id="project-name"><br>
+    </label>
+    <label>
+      Description
+      <textarea name="Description" rows="3" cols="40"></textarea>
+    </label>
+    <button type="button" name="submit-project" class="submit">Create New Project</button>
+    <button type="button" name="cancel" class="cancel">Cancel</button>
+  </div>
+
+
+  <div id="task-form-container" class="form-container">
+    <label>
+      Project name
+      <input type="text"><br>
+    </label>
+    <label>
+      Description
+      <textarea name="Description" rows="3" cols="40"></textarea>
+    </label>
+    <label>
+      Deadline
+      <input type="date"><br>
+    </label>
+    <label>
+      Assign to a Project<br>
+      <select class="assign-project" name="Assign Project">
+        <option value="Assign Project">Unassigned</option>
+      </select>
+    </label><br>
+    <label>
+      How Urgent is the Task<br>
+      <input type="range" value="4" min="1" max="4" class="slider">
+    </label>
+  <br>
+    <button type="button" name="submit-project" class="submit">Create New Project</button>
+    <button type="button" name="cancel" class="cancel">Cancel</button>
+  </div>
+
+
   <h1>TO GET DONE</h1>
   <h2>write down - clear your mind - DO - move on</h2>
+
   <div id="lists-container">
     <div id="project-container">
-      <button type="button" name="button" id="add-project">ADD PROJECT</button>
+      <button type="button" name="button" id="add-project" class="submit"> + ADD PROJECT
+      </button>
     </div>
   </div>
 

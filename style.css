@@ -1,10 +1,137 @@
+:root {
+  --my-green: rgb(127,149,117);
+  --my-blue: rgb(117,137,149);
+  --main-font: 'Trade Winds', sans-serif;
+}
+
+h1,
+h2 {
+  font-family: var(--main-font);
+  text-align: center;
+}
+
 body {
   box-sizing: border-box;
   font-family: sans-serif;
 }
 
 #project-container {
-  border: 1px solid red;
+  border: 2px solid var(--my-blue);
+  border-radius: 5px;
   height: 80vh;
   width: 30vw;
+  padding: 5px;
+}
+
+#project-form-container {
+  height: 220px;
+  display: none;
+}
+
+#task-form-container {
+  height: 400px;
+  display: none;
+}
+
+.form-container {
+  background: white;
+  border: 2px solid var(--my-green);
+  border-radius: 10px;
+  top: 30%;
+  left: 50%;
+  position: absolute;
+  z-index: 10;
+  padding-left: 55px;
+  padding-top: 10px;
+  line-height: 1.5;
+  margin-left: -200px;
+  width: 400px;
+  line-height: 1.8;
+}
+
+label {
+  font-family: var(--main-font);
+}
+
+textarea {
+  border-radius: 3px;
+  border: 1px solid var(--my-green);
+}
+
+input {
+  border-radius: 3px;
+  padding-left: 3px;
+  padding-right: 3px;
+  border: 1px solid var(--my-green);
+  width: 333px;
+}
+
+textarea:focus,
+input:focus {
+  outline: 2px solid var(--my-green);
+}
+
+button {
+  height: 30px;
+  border-radius: 3px;
+  color: white;
+  font-weight: bold;
+}
+
+button:focus {
+  outline: none;
+}
+
+select {
+  width: 340px;
+  background: white;
+  border-radius: 3px;
+  border: 1px solid var(--my-green);
+  height: 26px;
+}
+
+select:focus {
+  outline: none;
+}
+
+.submit {
+  background: var(--my-green);
+}
+
+.cancel {
+  background: rgb(205,80,87);
+}
+
+.slider {
+  outline: none;
+  -webkit-appearance: none;
+  background: linear-gradient(90deg, var(--my-green) 0%, rgba(253,255,40,1) 33%, rgba(255,185,78,1) 66%, rgb(205,80,87) 100%);
+  height: 6px;
+  margin-bottom: 15px;
+}
+
+.project-div {
+  background-color: var(--my-blue);
+  border: 2px solid rgb(89,117,140);
+  color: white;
+  padding-left: 15px;
+  margin: 5px;
+  border-radius: 10px;
+}
+
+.project-title {
+  font-weight: bold;
+  text-decoration: underline;
+  font-size: 16px;
+  padding-top: 5px;
+  text-transform: uppercase;
+}
+
+.project-title:hover {
+  text-decoration: none;
+}
+
+.project-descr {
+  font-size: 14px;
+  padding-bottom: 10px;
 }
