@@ -109,7 +109,7 @@ select:focus {
 .slider {
   outline: none;
   -webkit-appearance: none;
-  background: linear-gradient(90deg, var(--my-green) 0%, rgba(253,255,40,1) 33%, rgba(255,185,78,1) 66%, rgb(205,80,87) 100%);
+  background: linear-gradient(90deg, var(--my-green) 0%, rgba(255,185,78,1) 50%, rgb(205,80,87) 100%);
   height: 6px;
   margin-bottom: 15px;
 }
@@ -123,7 +123,8 @@ select:focus {
   border-radius: 10px;
 }
 
-.project-title {
+.project-title,
+.task-title {
   font-weight: bold;
   text-decoration: underline;
   font-size: 16px;
@@ -131,11 +132,15 @@ select:focus {
   text-transform: uppercase;
 }
 
-.project-title:hover {
+.project-title:hover,
+.task-title:hover,
+button:hover {
   text-decoration: none;
+  cursor: pointer;
 }
 
-.project-descr {
+.project-descr,
+.task-descr {
   font-size: 14px;
   padding-bottom: 10px;
 }
@@ -143,4 +148,18 @@ select:focus {
 #add-task {
   margin-top: 6px;
   margin-left: 15px;
+}
+
+.task-div {
+  border-radius: 5px;
+  margin-top: 5px;
+  margin-left: 15px;
+  width: 60vw;
+  padding-left: 15px;
+}
+
+.task-deadline {
+  float: right;
+  margin-right: 15px;
+  font-family: var(--main-font);
 }
