@@ -25,6 +25,12 @@ h2 {
   height: 80vh;
   width: 30vw;
   padding: 5px;
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+}
+
+#project-wrapper::-webkit-scrollbar {
+  display: none;
 }
 
 #project-form {
