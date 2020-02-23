@@ -61,11 +61,11 @@ function renderTasks(proj) {
       let today = new Date();
       let tDeadline = new Date(element.deadline);
       if (tDeadline.getTime() < today.getTime()) {
-        console.log('overdue!');
         let overdueDiv = document.createElement('div');
         overdueDiv.setAttribute('class', 'overdue');
-        overdueDiv.innerHTML = 'OVERDUE!';
+        overdueDiv.innerHTML = 'OVERDUE';
         taskDiv.appendChild(overdueDiv);
+        taskDeadline.style.color = 'rgb(205,80,87)';
       }
     })();
 
@@ -92,6 +92,6 @@ taskButton.addEventListener('click', () => {
 
 export { renderTasks };
 
-// TODO: add deadline and urgency to rendering tasks,
+// TODO:
 // research local storage
 // update and destroy
