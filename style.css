@@ -1,6 +1,7 @@
 :root {
   --my-green: rgb(127,149,117);
   --my-blue: rgb(117,137,149);
+  --my-red: rgb(205,80,87);
   --main-font: 'Trade Winds', sans-serif;
 }
 
@@ -124,13 +125,13 @@ select:focus {
 }
 
 .cancel {
-  background: rgb(205,80,87);
+  background: var(--my-red);
 }
 
 .slider {
   outline: none;
   -webkit-appearance: none;
-  background: linear-gradient(90deg, var(--my-green) 0%, rgba(255,185,78,1) 50%, rgb(205,80,87) 100%);
+  background: linear-gradient(90deg, var(--my-green) 0%, rgba(255,185,78,1) 50%, var(--my-red) 100%);
   height: 6px;
   margin-bottom: 15px;
 }
@@ -191,4 +192,11 @@ button:hover {
   float: right;
   margin-right: 15px;
   font-family: var(--main-font);
+}
+
+.overdue {
+  color: var(--my-red);
+  font-weight: bold;
+  text-align: center;
+  margin-top: 5px;
 }
