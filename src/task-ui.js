@@ -11,6 +11,7 @@ const projectSelection = document.getElementById('assign-project');
 
 let taskName = document.getElementById('task-name');
 let taskDescription = document.getElementById('task-description');
+let taskDeadline = document.getElementById('deadline');
 let urgency = document.getElementById('urgency');
 
 newTaskButton.addEventListener('click', () => {
@@ -19,7 +20,8 @@ newTaskButton.addEventListener('click', () => {
     ;
   } else {
     selectedProject = projects[projectSelection.selectedIndex];
-    let newT = taskFactory(taskName.value, taskDescription.value);
+    let newT = taskFactory(taskName.value, taskDescription.value,
+      taskDeadline.value, selectedProject, urgency.value);
     selectedProject.tasks.push(newT);
     console.log(selectedProject);
     renderTasks(selectedProject);

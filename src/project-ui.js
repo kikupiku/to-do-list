@@ -14,9 +14,9 @@ let sampleProject3 = projectFactory('Sample Project3', 'This is a sample project
 let projects = [sampleProject, sampleProject2, sampleProject3];
 
 let sampleTask = taskFactory('Test Task', 'This is a short description',
-                          '06/03/2020', 'Unassigned', 3);
+                          '2020-06-03', 'Unassigned', 3);
 let sampleTask2 = taskFactory('Not so Urgent Task', 'Can be postponed, it\'s fine.',
-                          '08/03/2020', 'Unassigned', 2);
+                          '2020-08-03', 'Unassigned', 2);
 
 sampleProject.tasks.push(sampleTask);
 sampleProject2.tasks.push(sampleTask2);
@@ -55,12 +55,20 @@ function renderProjects() {
     let option = document.createElement('option');
     let taskAssignment = document.getElementById('assign-project');
 
+    if (element === projects[0]) {
+      projectDiv.setAttribute('autofocus', '');
+
+      //add that the first project, i.e., inbox, is not deletable as well
+    }
+
     option.innerHTML = element.title;
     taskAssignment.appendChild(option);
 
     projectDiv.setAttribute('class', 'project-div');
     projectTitle.setAttribute('class', 'project-title');
     projectDescription.setAttribute('class', 'project-descr');
+
+    projectDiv.setAttribute('tabindex', '1');
 
     projectTitle.innerHTML = element.title;
     projectDescription.innerHTML = element.description;

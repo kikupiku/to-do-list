@@ -5,4 +5,5 @@ import { projects, sampleProject, renderProjects, renderForm } from './project-u
 import { renderTasks } from './task-ui.js';
 
 renderProjects();
-// renderTasks(sampleProject);
+
+renderTasks(sampleProject);

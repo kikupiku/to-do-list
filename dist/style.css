@@ -130,12 +130,16 @@ select:focus {
 }
 
 .project-div {
-  background-color: var(--my-blue);
+  background: var(--my-blue);
   border: 2px solid rgb(89,117,140);
   color: white;
   padding-left: 15px;
   margin: 5px;
   border-radius: 10px;
+}
+
+div.project-div:focus {
+  background: rgba(117,137,149,.7);
 }
 
 .project-div:hover {
