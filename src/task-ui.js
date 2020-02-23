@@ -23,7 +23,6 @@ newTaskButton.addEventListener('click', () => {
     let newT = taskFactory(taskName.value, taskDescription.value,
       taskDeadline.value, selectedProject, urgency.value);
     selectedProject.tasks.push(newT);
-    console.log(selectedProject);
     renderTasks(selectedProject);
     toggleVisibility(taskForm);
     renderProjects();
@@ -57,6 +56,18 @@ function renderTasks(proj) {
     taskTitle.innerHTML = element.title;
     taskDescription.innerHTML = element.description;
     taskDeadline.innerHTML = 'Deadline: ' + element.deadline;
+
+    (function () {
+      let today = new Date();
+      let tDeadline = new Date(element.deadline);
+      if (tDeadline.getTime() < today.getTime()) {
+        console.log('overdue!');
+        let overdueDiv = document.createElement('div');
+        overdueDiv.setAttribute('class', 'overdue');
+        overdueDiv.innerHTML = 'OVERDUE!';
+        taskDiv.appendChild(overdueDiv);
+      }
+    })();
 
     taskDiv.appendChild(taskDeadline);
     taskDiv.appendChild(taskTitle);

@@ -14,7 +14,7 @@ let sampleProject3 = projectFactory('Sample Project3', 'This is a sample project
 let projects = [sampleProject, sampleProject2, sampleProject3];
 
 let sampleTask = taskFactory('Test Task', 'This is a short description',
-                          '2020-06-03', 'Unassigned', 3);
+                          '2020-01-01', 'Unassigned', 3);
 let sampleTask2 = taskFactory('Not so Urgent Task', 'Can be postponed, it\'s fine.',
                           '2020-08-03', 'Unassigned', 2);
 
