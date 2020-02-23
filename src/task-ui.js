@@ -2,8 +2,41 @@ import { toggleVisibility, taskForm } from './visibility.js';
 import { taskFactory } from './task.js';
 import { projectFactory } from './project.js';
 import { projects, sampleProject, sampleProject2, renderProjects } from './project-ui.js';
+import { resetValue } from './reset.js';
 
 const taskContainer = document.getElementById('task-container');
+const newTaskButton = document.getElementById('create-task');
+const taskCancelButton = document.getElementById('task-cancel');
+const projectSelection = document.getElementById('assign-project');
+
+let taskName = document.getElementById('task-name');
+let taskDescription = document.getElementById('task-description');
+let urgency = document.getElementById('urgency');
+
+newTaskButton.addEventListener('click', () => {
+  let selectedProject;
+  if (taskName.value === '') {
+    ;
+  } else {
+    selectedProject = projects[projectSelection.selectedIndex];
+    let newT = taskFactory(taskName.value, taskDescription.value);
+    selectedProject.tasks.push(newT);
+    console.log(selectedProject);
+    renderTasks(selectedProject);
+    toggleVisibility(taskForm);
+    renderProjects();
+    resetValue(taskName);
+    resetValue(taskDescription);
+    urgency.value = '1';
+  }
+});
+
+taskCancelButton.addEventListener('click', () => {
+  toggleVisibility(taskForm);
+  resetValue(taskName);
+  resetValue(taskDescription);
+  urgency.value = '1';
+});
 
 function renderTasks(proj) {
   taskContainer.innerHTML = '';
@@ -45,3 +78,7 @@ taskButton.addEventListener('click', () => {
 });
 
 export { renderTasks };
+
+// TODO: add deadline and urgency to rendering tasks,
+// research local storage
+// update and destroy

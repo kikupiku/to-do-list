@@ -3,7 +3,7 @@
 import { toggleVisibility, projectForm } from './visibility.js';
 import { projectFactory } from './project.js';
 import { renderTasks } from './task-ui.js';
-import { taskFactory } from './task.js';
+import { taskFactory, taskForm } from './task.js';
 import { resetValue } from './reset.js';
 
 let sampleProject = projectFactory('Inbox',
@@ -23,14 +23,25 @@ sampleProject2.tasks.push(sampleTask2);
 
 const projectContainer = document.getElementById('project-container');
 const newProjectButton = document.getElementById('create-project');
+const projectCancelButton = document.getElementById('proj-cancel');
+
+let projName = document.getElementById('project-name');
+let projDescription = document.getElementById('project-description');
 
 newProjectButton.addEventListener('click', () => {
-  let projName = document.getElementById('project-name');
-  let projDescription = document.getElementById('project-description');
+  if (projName.value === '') {
+    ;
+  } else {
+    projects.push(projectFactory(projName.value, projDescription.value));
+    toggleVisibility(projectForm);
+    renderProjects();
+    resetValue(projName);
+    resetValue(projDescription);
+  }
+});
 
-  projects.push(projectFactory(projName.value, projDescription.value));
+projectCancelButton.addEventListener('click', () => {
   toggleVisibility(projectForm);
-  renderProjects();
   resetValue(projName);
   resetValue(projDescription);
 });
@@ -41,6 +52,11 @@ function renderProjects() {
     let projectDiv = document.createElement('div');
     let projectTitle = document.createElement('p');
     let projectDescription = document.createElement('p');
+    let option = document.createElement('option');
+    let taskAssignment = document.getElementById('assign-project');
+
+    option.innerHTML = element.title;
+    taskAssignment.appendChild(option);
 
     projectDiv.setAttribute('class', 'project-div');
     projectTitle.setAttribute('class', 'project-title');

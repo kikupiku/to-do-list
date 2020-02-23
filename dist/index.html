@@ -21,7 +21,7 @@
         <textarea name="Description" rows="3" cols="40" id="project-description"></textarea>
       </label>
       <button type="button" name="submit-project" class="submit" id="create-project">Create New Project</button>
-      <button type="button" name="cancel" class="cancel">Cancel</button>
+      <button type="button" name="cancel" class="cancel" id="proj-cancel">Cancel</button>
     </div>
   </div>
 
@@ -29,12 +29,12 @@
   <div id="task-form" class="form-wrapper">
     <div  id="task-form-container" class="form-container">
       <label>
-        Project name
-        <input type="text"><br>
+        Task name
+        <input type="text" id="task-name"><br>
       </label>
       <label>
         Description
-        <textarea name="Description" rows="3" cols="40"></textarea>
+        <textarea name="Description" rows="3" cols="40" id="task-description"></textarea>
       </label>
       <label>
         Deadline
@@ -42,17 +42,16 @@
       </label>
       <label>
         Assign to a Project<br>
-        <select class="assign-project" name="Assign Project">
-          <option value="Assign Project">Unassigned</option>
+        <select class="assign-project" name="Assign Project" id="assign-project">
         </select>
       </label><br>
       <label>
         How Urgent is the Task<br>
-        <input type="range" value="3" min="1" max="3" class="slider">
+        <input type="range" value="1" min="1" max="3" class="slider" id="urgency">
       </label>
     <br>
-      <button type="button" name="submit-project" class="submit">Create New Project</button>
-      <button type="button" name="cancel" class="cancel">Cancel</button>
+      <button type="button" name="submit-task" class="submit" id="create-task">Create New Task</button>
+      <button type="button" name="cancel" class="cancel" id="task-cancel">Cancel</button>
     </div>
   </div>
 
