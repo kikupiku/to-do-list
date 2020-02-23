@@ -30,12 +30,19 @@ h2 {
   -ms-overflow-style: none;
 }
 
-#project-wrapper::-webkit-scrollbar {
+#project-wrapper::-webkit-scrollbar,
+#task-wrapper::-webkit-scrollbar {
   display: none;
 }
 
 #project-form {
   display: none;
+}
+
+#task-wrapper {
+  height: 81vh;
+  overflow-y: scroll;
+  -ms-overflow-style: none;
 }
 
 #task-form {
@@ -186,6 +193,7 @@ button:hover {
   margin-left: 15px;
   width: 60vw;
   padding-left: 15px;
+  position: relative;
 }
 
 .task-deadline {
@@ -197,6 +205,8 @@ button:hover {
 .overdue {
   color: var(--my-red);
   font-weight: bold;
-  text-align: center;
-  margin-top: 5px;
+  position: absolute;
+  bottom: 23px;
+  right: 15px;
+  font-family: var(--main-font);
 }
