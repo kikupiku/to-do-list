@@ -8,8 +8,6 @@ const taskContainer = document.getElementById('task-container');
 function renderTasks(proj) {
   taskContainer.innerHTML = '';
 
-  // projects.forEach((proj) => {
-
   proj.tasks.forEach((element) => {
     let taskDiv = document.createElement('div');
     let taskTitle = document.createElement('p');
@@ -38,8 +36,6 @@ function renderTasks(proj) {
       taskDiv.style.border = '2px solid rgb(205,80,87)';
     }
   });
-
-  // });
 }
 
 const taskButton = document.getElementById('add-task');
