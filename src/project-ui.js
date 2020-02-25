@@ -8,18 +8,20 @@ import { resetValue } from './reset.js';
 
 let sampleProject = projectFactory('Inbox',
                       'This project contains all tasks that have not been assigned elsewhere.');
-let sampleProject2 = projectFactory('Sample Project2', 'This is a sample project. It is nice.');
-let sampleProject3 = projectFactory('Sample Project3', 'This is a sample project. It is nice.');
 
-let projects = [sampleProject, sampleProject2, sampleProject3];
+let projects;
+
+if (!JSON.parse(localStorage.getItem('projects'))) {
+  projects = [sampleProject];
+} else {
+  let storedProjects = JSON.parse(localStorage.getItem('projects'));  // FROM LOCAL STORAGE
+  projects = storedProjects;
+}
 
 let sampleTask = taskFactory('Test Task', 'This is a short description',
                           '2020-01-01', 'Unassigned', 3);
-let sampleTask2 = taskFactory('Not so Urgent Task', 'Can be postponed, it\'s fine.',
-                          '2020-08-03', 'Unassigned', 2);
 
 sampleProject.tasks.push(sampleTask);
-sampleProject2.tasks.push(sampleTask2);
 
 const projectContainer = document.getElementById('project-container');
 const newProjectButton = document.getElementById('create-project');
@@ -33,6 +35,7 @@ newProjectButton.addEventListener('click', () => {
     ;
   } else {
     projects.push(projectFactory(projName.value, projDescription.value));
+    localStorage.setItem('projects', JSON.stringify(projects));
     toggleVisibility(projectForm);
     renderProjects();
     resetValue(projName);
@@ -47,13 +50,15 @@ projectCancelButton.addEventListener('click', () => {
 });
 
 function renderProjects() {
+  let taskAssignment = document.getElementById('assign-project');
+  taskAssignment.innerHTML = '';
   projectContainer.innerHTML = '';
+
   projects.forEach((element) => {
     let projectDiv = document.createElement('div');
     let projectTitle = document.createElement('p');
     let projectDescription = document.createElement('p');
     let option = document.createElement('option');
-    let taskAssignment = document.getElementById('assign-project');
 
     if (element === projects[0]) {
       projectDiv.setAttribute('autofocus', '');
@@ -89,4 +94,4 @@ projectButton.addEventListener('click', () => {
   toggleVisibility(projectForm);
 });
 
-export { projects, sampleProject, sampleProject2, renderProjects };
+export { projects, sampleProject, renderProjects };

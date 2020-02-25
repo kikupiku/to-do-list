@@ -1,7 +1,9 @@
 import { toggleVisibility, taskForm } from './visibility.js';
 import { taskFactory } from './task.js';
-import { projectFactory } from './project.js';
-import { projects, sampleProject, sampleProject2, renderProjects } from './project-ui.js';
+import { projectFactory, tasks } from './project.js';
+
+// import { projects, sampleProject, sampleProject2, renderProjects } from './project-ui.js';
+import { projects, renderProjects } from './project-ui.js';
 import { resetValue } from './reset.js';
 
 const taskContainer = document.getElementById('task-container');
@@ -17,7 +19,7 @@ let urgency = document.getElementById('urgency');
 newTaskButton.addEventListener('click', () => {
   let selectedProject;
   if (taskName.value === '') {
-    ;
+    alert('Please at least give your task a name');
   } else {
     selectedProject = projects[projectSelection.selectedIndex];
     let newT = taskFactory(taskName.value, taskDescription.value,
@@ -93,5 +95,9 @@ taskButton.addEventListener('click', () => {
 export { renderTasks };
 
 // TODO:
-// research local storage
-// update and destroy
+// make single todos expandable to show details
+// research local storage (localStorage, JSON save)
+// update and destroy (edit and delete)
+//disallow empty deadlines or remove deadline text if not given
+//add tick box for when tasks are done
+//possibly make project focus when a task is created
