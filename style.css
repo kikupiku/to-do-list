@@ -154,6 +154,7 @@ select:focus {
 
 div.project-div:focus {
   background: rgba(117,137,149,.7);
+  outline: none;
 }
 
 .project-div:hover {
