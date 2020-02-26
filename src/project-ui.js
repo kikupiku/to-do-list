@@ -55,10 +55,12 @@ function renderProjects() {
     let option = document.createElement('option');
 
     if (element === projects[0]) {
-      projectDiv.setAttribute('autofocus', '');
       projectDiv.setAttribute('id', 'inbox');
 
       //add that the first project, i.e., inbox, is not deletable as well
+    } else {
+      let inbox = document.getElementById('inbox');
+      inbox.focus();
     }
 
     option.innerHTML = element.title;
