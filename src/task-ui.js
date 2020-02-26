@@ -31,18 +31,21 @@ const getCircularReplacer = () => {
 
 newTaskButton.addEventListener('click', () => {
   let selectedProject;
+  let projectForThisTask;
+
   if (taskName.value === '') {
     alert('Please at least give your task a name');
   } else {
-    selectedProject = projects[projectSelection.selectedIndex];
+    let indexNo = projectSelection.selectedIndex;
+    selectedProject = projects[indexNo];
     let newT = taskFactory(taskName.value, taskDescription.value,
       taskDeadline.value, urgency.value);
     selectedProject.tasks.push(newT);
     toggleVisibility(taskForm);
     renderProjects();
-    let inbox = document.getElementById('inbox');
-    inbox.focus();
-    renderTasks(projects[0]);
+    projectForThisTask = document.getElementsByClassName('project-div')[indexNo];
+    projectForThisTask.focus();
+    renderTasks(selectedProject);
     localStorage.setItem('projects', JSON.stringify(projects, getCircularReplacer()));
     resetValue(taskName);
     resetValue(taskDescription);
@@ -116,6 +119,7 @@ taskButton.addEventListener('click', () => {
 export { renderTasks, getCircularReplacer };
 
 // TODO:
+// figure out why when new project is made, none are in focus
 // make single todos expandable to show details
 // update and destroy (edit and delete)
 //add tick box for when tasks are done
