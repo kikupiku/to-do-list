@@ -63,7 +63,6 @@ taskCancelButton.addEventListener('click', () => {
 
 function renderTasks(proj) {
   taskContainer.innerHTML = '';
-  console.log('rendered ', proj);
 
   proj.tasks.forEach((element) => {
     let taskDiv = document.createElement('div');
@@ -120,6 +119,5 @@ taskButton.addEventListener('click', () => {
 export { renderTasks, getCircularReplacer };
 
 // TODO:
-// make single todos expandable to show details
-// update and destroy (edit and delete)
+// update (edit) INTO A NEW EDIT FORM
 //add tick box for when tasks are done

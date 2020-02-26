@@ -16,6 +16,7 @@ sampleProject.tasks.push(sampleTask);
 
 let projects;
 let deleteButton;
+let editButton;
 let inbox;
 
 const projectContainer = document.getElementById('project-container');
@@ -60,6 +61,10 @@ function renderProjects() {
     deleteButton.setAttribute('src', './assets/delete.svg');
     deleteButton.setAttribute('class', 'delete');
 
+    editButton = document.createElement('img');
+    editButton.setAttribute('src', './assets/edit.svg');
+    editButton.setAttribute('class', 'edit');
+
     inbox = document.getElementById('inbox');
 
     if (element === projects[0]) {
@@ -69,6 +74,7 @@ function renderProjects() {
     } else {
       inbox.focus();
       projectDiv.appendChild(deleteButton);
+      projectDiv.appendChild(editButton);
     }
 
     option.innerHTML = element.title;
@@ -88,14 +94,20 @@ function renderProjects() {
     projectContainer.appendChild(projectDiv);
 
     projectDiv.addEventListener('click', (e) => {
-      console.log(e.target);
+      let arr = Array.prototype.slice.call(projectContainer.childNodes);
       if (e.target === deleteButton) {
-        let arr = Array.prototype.slice.call(projectContainer.childNodes);
         projectContainer.removeChild(projectDiv);
         projects.splice(arr.indexOf(projectDiv), 1);
         localStorage.setItem('projects', JSON.stringify(projects, getCircularReplacer()));
         inbox.focus();
         renderTasks(projects[0]);
+      } else if (e.target === editButton) {
+        toggleVisibility(projectForm);
+        projectContainer.removeChild(e.path[1]);
+        projects.splice(arr.indexOf(projectDiv), 1);
+        localStorage.setItem('projects', JSON.stringify(projects, getCircularReplacer()));
+        projName.value = e.path[1].childNodes[2].innerHTML;
+        projDescription.value = e.path[1].lastChild.innerHTML;
       } else {
         renderTasks(element);
       }
