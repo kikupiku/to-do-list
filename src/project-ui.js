@@ -10,7 +10,7 @@ let sampleProject = projectFactory('Inbox',
                       'This project contains all tasks that have not been assigned elsewhere.');
 
 let sampleTask = taskFactory('Test Task', 'This is a short description',
-                          '2020-01-01', 'Unassigned', 3);
+                          '2020-01-01', 3);
 
 sampleProject.tasks.push(sampleTask);
 
@@ -46,6 +46,7 @@ function renderProjects() {
   let taskAssignment = document.getElementById('assign-project');
   taskAssignment.innerHTML = '';
   projectContainer.innerHTML = '';
+  renderTasks(projects[0]);
 
   projects.forEach((element) => {
     let projectDiv = document.createElement('div');
@@ -93,8 +94,6 @@ if (!JSON.parse(localStorage.getItem('projects'))) {
 } else {
   let storedProjects = JSON.parse(localStorage.getItem('projects'));
   projects = storedProjects;
-  renderTasks(projects[0]);
-  console.log(projects[0].tasks);
 }
 
 export { projects, sampleProject, renderProjects };

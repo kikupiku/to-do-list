@@ -36,13 +36,13 @@ newTaskButton.addEventListener('click', () => {
   } else {
     selectedProject = projects[projectSelection.selectedIndex];
     let newT = taskFactory(taskName.value, taskDescription.value,
-      taskDeadline.value, selectedProject, urgency.value);
+      taskDeadline.value, urgency.value);
     selectedProject.tasks.push(newT);
-    renderTasks(selectedProject);
     toggleVisibility(taskForm);
     renderProjects();
     let inbox = document.getElementById('inbox');
     inbox.focus();
+    renderTasks(projects[0]);
     localStorage.setItem('projects', JSON.stringify(projects, getCircularReplacer()));
     resetValue(taskName);
     resetValue(taskDescription);
@@ -117,7 +117,5 @@ export { renderTasks, getCircularReplacer };
 
 // TODO:
 // make single todos expandable to show details
-// research local storage (localStorage, JSON save)
 // update and destroy (edit and delete)
 //add tick box for when tasks are done
-//possibly make project focus when a task is created
