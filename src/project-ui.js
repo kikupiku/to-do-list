@@ -87,20 +87,20 @@ function renderProjects() {
     projectDiv.appendChild(projectDescription);
     projectContainer.appendChild(projectDiv);
 
-    projectDiv.addEventListener('click', () => {
-      renderTasks(element);
-    });
-
-    if (projects.length > 1) {
-      deleteButton.addEventListener('click', () => {
+    projectDiv.addEventListener('click', (e) => {
+      console.log(e.target);
+      if (e.target === deleteButton) {
         let arr = Array.prototype.slice.call(projectContainer.childNodes);
         projectContainer.removeChild(projectDiv);
         projects.splice(arr.indexOf(projectDiv), 1);
         localStorage.setItem('projects', JSON.stringify(projects, getCircularReplacer()));
         inbox.focus();
         renderTasks(projects[0]);
-      });
-    }
+      } else {
+        renderTasks(element);
+      }
+    });
+
   });
 }
 

@@ -63,7 +63,7 @@ taskCancelButton.addEventListener('click', () => {
 
 function renderTasks(proj) {
   taskContainer.innerHTML = '';
-  console.log(proj);
+  console.log('rendered ', proj);
 
   proj.tasks.forEach((element) => {
     let taskDiv = document.createElement('div');
