@@ -1,8 +1,6 @@
 import { toggleVisibility, taskForm } from './visibility.js';
 import { taskFactory } from './task.js';
 import { projectFactory, tasks } from './project.js';
-
-// import { projects, sampleProject, sampleProject2, renderProjects } from './project-ui.js';
 import { projects, renderProjects } from './project-ui.js';
 import { resetValue } from './reset.js';
 
@@ -16,6 +14,21 @@ let taskDescription = document.getElementById('task-description');
 let taskDeadline = document.getElementById('deadline');
 let urgency = document.getElementById('urgency');
 
+const getCircularReplacer = () => {
+  const seen = new WeakSet();
+  return (key, value) => {
+    if (typeof value === 'object' && value !== null) {
+      if (seen.has(value)) {
+        return;
+      }
+
+      seen.add(value);
+    }
+
+    return value;
+  };
+};
+
 newTaskButton.addEventListener('click', () => {
   let selectedProject;
   if (taskName.value === '') {
@@ -28,10 +41,14 @@ newTaskButton.addEventListener('click', () => {
     renderTasks(selectedProject);
     toggleVisibility(taskForm);
     renderProjects();
+    let inbox = document.getElementById('inbox');
+    inbox.focus();
+    localStorage.setItem('projects', JSON.stringify(projects, getCircularReplacer()));
     resetValue(taskName);
     resetValue(taskDescription);
     urgency.value = '1';
   }
+
 });
 
 taskCancelButton.addEventListener('click', () => {
@@ -57,7 +74,11 @@ function renderTasks(proj) {
 
     taskTitle.innerHTML = element.title;
     taskDescription.innerHTML = element.description;
-    taskDeadline.innerHTML = 'Deadline: ' + element.deadline;
+    if (element.deadline === '') {
+      taskDeadline.innerHTML = 'Deadline not determined';
+    } else {
+      taskDeadline.innerHTML = 'Deadline: ' + element.deadline;
+    }
 
     (function () {
       let today = new Date();
@@ -92,12 +113,11 @@ taskButton.addEventListener('click', () => {
   toggleVisibility(taskForm);
 });
 
-export { renderTasks };
+export { renderTasks, getCircularReplacer };
 
 // TODO:
 // make single todos expandable to show details
 // research local storage (localStorage, JSON save)
 // update and destroy (edit and delete)
-//disallow empty deadlines or remove deadline text if not given
 //add tick box for when tasks are done
 //possibly make project focus when a task is created
