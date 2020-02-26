@@ -15,6 +15,8 @@ let sampleTask = taskFactory('Test Task', 'This is a short description',
 sampleProject.tasks.push(sampleTask);
 
 let projects;
+let deleteButton;
+let inbox;
 
 const projectContainer = document.getElementById('project-container');
 const newProjectButton = document.getElementById('create-project');
@@ -54,13 +56,19 @@ function renderProjects() {
     let projectDescription = document.createElement('p');
     let option = document.createElement('option');
 
+    deleteButton = document.createElement('img');
+    deleteButton.setAttribute('src', './assets/delete.svg');
+    deleteButton.setAttribute('class', 'delete');
+
+    inbox = document.getElementById('inbox');
+
     if (element === projects[0]) {
       projectDiv.setAttribute('id', 'inbox');
 
       //add that the first project, i.e., inbox, is not deletable as well
     } else {
-      let inbox = document.getElementById('inbox');
       inbox.focus();
+      projectDiv.appendChild(deleteButton);
     }
 
     option.innerHTML = element.title;
@@ -82,6 +90,17 @@ function renderProjects() {
     projectDiv.addEventListener('click', () => {
       renderTasks(element);
     });
+
+    if (projects.length > 1) {
+      deleteButton.addEventListener('click', () => {
+        let arr = Array.prototype.slice.call(projectContainer.childNodes);
+        projectContainer.removeChild(projectDiv);
+        projects.splice(arr.indexOf(projectDiv), 1);
+        localStorage.setItem('projects', JSON.stringify(projects, getCircularReplacer()));
+        inbox.focus();
+        renderTasks(projects[0]);
+      });
+    }
   });
 }
 
@@ -98,4 +117,4 @@ if (!JSON.parse(localStorage.getItem('projects'))) {
   projects = storedProjects;
 }
 
-export { projects, sampleProject, renderProjects };
+export { projects, sampleProject, renderProjects, inbox };

@@ -161,6 +161,15 @@ div.project-div:focus {
   cursor: pointer;
 }
 
+.delete {
+  height: 20px;
+  float: right;
+  position: relative;
+  top: 15px;
+  right: 15px;
+  filter: invert(29%) sepia(14%) saturate(1033%) hue-rotate(165deg) brightness(98%) contrast(86%);
+}
+
 .project-title,
 .task-title {
   font-weight: bold;

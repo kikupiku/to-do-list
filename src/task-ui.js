@@ -1,7 +1,7 @@
 import { toggleVisibility, taskForm } from './visibility.js';
 import { taskFactory } from './task.js';
 import { projectFactory, tasks } from './project.js';
-import { projects, renderProjects } from './project-ui.js';
+import { projects, renderProjects, inbox } from './project-ui.js';
 import { resetValue } from './reset.js';
 
 const taskContainer = document.getElementById('task-container');
@@ -63,6 +63,7 @@ taskCancelButton.addEventListener('click', () => {
 
 function renderTasks(proj) {
   taskContainer.innerHTML = '';
+  console.log(proj);
 
   proj.tasks.forEach((element) => {
     let taskDiv = document.createElement('div');
@@ -119,7 +120,6 @@ taskButton.addEventListener('click', () => {
 export { renderTasks, getCircularReplacer };
 
 // TODO:
-// figure out why when new project is made, none are in focus
 // make single todos expandable to show details
 // update and destroy (edit and delete)
 //add tick box for when tasks are done
