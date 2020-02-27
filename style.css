@@ -174,11 +174,24 @@ div.project-div:focus {
 .delete,
 .edit {
   height: 20px;
+  margin-left: 10px;
+}
+
+.delete,
+.edit-project {
+  filter: invert(29%) sepia(14%) saturate(1033%) hue-rotate(165deg) brightness(98%) contrast(86%);
   float: right;
   position: relative;
   top: 15px;
   right: 15px;
-  filter: invert(29%) sepia(14%) saturate(1033%) hue-rotate(165deg) brightness(98%) contrast(86%);
+}
+
+.edit-task,
+.task-title {
+  display: inline-block;
+}
+
+img.edit-task {
   margin-left: 10px;
 }
 
