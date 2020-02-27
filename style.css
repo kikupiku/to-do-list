@@ -35,25 +35,35 @@ h2 {
   display: none;
 }
 
-#project-form {
-  display: none;
-}
-
 #task-wrapper {
   height: 81vh;
   overflow-y: scroll;
   -ms-overflow-style: none;
 }
 
+#project-form {
+  display: none;
+}
+
 #task-form {
   display: none;
 }
 
-#project-form-container {
+#project-edit-form {
+  display: none;
+}
+
+#task-edit-form {
+  display: none;
+}
+
+#project-form-container,
+#project-edit-form-container {
   height: 220px;
 }
 
-#task-form-container {
+#task-form-container,
+#task-edit-form-container {
   height: 400px;
 }
 
