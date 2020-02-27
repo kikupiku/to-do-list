@@ -1,10 +1,11 @@
 //to determine how the project part of the screen looks
 
-import { toggleVisibility, projectForm } from './visibility.js';
+import { toggleVisibility, projectForm, projectEditForm } from './visibility.js';
 import { projectFactory } from './project.js';
 import { renderTasks, getCircularReplacer } from './task-ui.js';
 import { taskFactory, taskForm } from './task.js';
 import { resetValue } from './reset.js';
+import { dom } from './dom-elements.js';
 
 let sampleProject = projectFactory('Inbox',
                       'This project contains all tasks that have not been assigned elsewhere.');
@@ -19,36 +20,29 @@ let deleteButton;
 let editButton;
 let inbox;
 
-const projectContainer = document.getElementById('project-container');
-const newProjectButton = document.getElementById('create-project');
-const projectCancelButton = document.getElementById('proj-cancel');
-
-let projName = document.getElementById('project-name');
-let projDescription = document.getElementById('project-description');
-
-newProjectButton.addEventListener('click', () => {
-  if (projName.value === '') {
+dom.newProjectButton.addEventListener('click', () => {
+  if (dom.projName.value === '') {
     alert('Please, at least give the project a name');
   } else {
-    projects.push(projectFactory(projName.value, projDescription.value));
+    projects.push(projectFactory(dom.projName.value, dom.projDescription.value));
     localStorage.setItem('projects', JSON.stringify(projects, getCircularReplacer()));
-    toggleVisibility(projectForm);
+    toggleVisibility(dom.projectForm);
     renderProjects();
-    resetValue(projName);
-    resetValue(projDescription);
+    resetValue(dom.projName);
+    resetValue(dom.projDescription);
   }
 });
 
-projectCancelButton.addEventListener('click', () => {
-  toggleVisibility(projectForm);
-  resetValue(projName);
-  resetValue(projDescription);
+dom.projectCancelButton.addEventListener('click', () => {
+  toggleVisibility(dom.projectForm);
+  resetValue(dom.projName);
+  resetValue(dom.projDescription);
 });
 
 function renderProjects() {
   let taskAssignment = document.getElementById('assign-project');
   taskAssignment.innerHTML = '';
-  projectContainer.innerHTML = '';
+  dom.projectContainer.innerHTML = '';
   renderTasks(projects[0]);
 
   projects.forEach((element) => {
@@ -91,23 +85,23 @@ function renderProjects() {
 
     projectDiv.appendChild(projectTitle);
     projectDiv.appendChild(projectDescription);
-    projectContainer.appendChild(projectDiv);
+    dom.projectContainer.appendChild(projectDiv);
 
     projectDiv.addEventListener('click', (e) => {
-      let arr = Array.prototype.slice.call(projectContainer.childNodes);
+      let arr = Array.prototype.slice.call(dom.projectContainer.childNodes);
       if (e.target === deleteButton) {
-        projectContainer.removeChild(projectDiv);
+        dom.projectContainer.removeChild(projectDiv);
         projects.splice(arr.indexOf(projectDiv), 1);
         localStorage.setItem('projects', JSON.stringify(projects, getCircularReplacer()));
         inbox.focus();
         renderTasks(projects[0]);
       } else if (e.target === editButton) {
-        toggleVisibility(projectForm);
-        projectContainer.removeChild(e.path[1]);
+        toggleVisibility(dom.projectEditForm);
+        dom.projectContainer.removeChild(e.path[1]);
         projects.splice(arr.indexOf(projectDiv), 1);
         localStorage.setItem('projects', JSON.stringify(projects, getCircularReplacer()));
-        projName.value = e.path[1].childNodes[2].innerHTML;
-        projDescription.value = e.path[1].lastChild.innerHTML;
+        dom.projEditName.value = e.path[1].childNodes[2].innerHTML;
+        dom.projEditDescription.value = e.path[1].lastChild.innerHTML;
       } else {
         renderTasks(element);
       }
@@ -116,10 +110,8 @@ function renderProjects() {
   });
 }
 
-const projectButton = document.getElementById('add-project');
-
-projectButton.addEventListener('click', () => {
-  toggleVisibility(projectForm);
+dom.projectButton.addEventListener('click', () => {
+  toggleVisibility(dom.projectForm);
 });
 
 if (!JSON.parse(localStorage.getItem('projects'))) {

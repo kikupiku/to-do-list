@@ -3,16 +3,7 @@ import { taskFactory } from './task.js';
 import { projectFactory, tasks } from './project.js';
 import { projects, renderProjects, inbox } from './project-ui.js';
 import { resetValue } from './reset.js';
-
-const taskContainer = document.getElementById('task-container');
-const newTaskButton = document.getElementById('create-task');
-const taskCancelButton = document.getElementById('task-cancel');
-const projectSelection = document.getElementById('assign-project');
-
-let taskName = document.getElementById('task-name');
-let taskDescription = document.getElementById('task-description');
-let taskDeadline = document.getElementById('deadline');
-let urgency = document.getElementById('urgency');
+import { dom } from './dom-elements.js';
 
 const getCircularReplacer = () => {
   const seen = new WeakSet();
@@ -29,40 +20,40 @@ const getCircularReplacer = () => {
   };
 };
 
-newTaskButton.addEventListener('click', () => {
+dom.newTaskButton.addEventListener('click', () => {
   let selectedProject;
   let projectForThisTask;
 
-  if (taskName.value === '') {
+  if (dom.taskName.value === '') {
     alert('Please at least give your task a name');
   } else {
-    let indexNo = projectSelection.selectedIndex;
+    let indexNo = dom.projectSelection.selectedIndex;
     selectedProject = projects[indexNo];
-    let newT = taskFactory(taskName.value, taskDescription.value,
-      taskDeadline.value, urgency.value);
+    let newT = taskFactory(dom.taskName.value, dom.taskDescription.value,
+      dom.taskDeadline.value, dom.urgency.value);
     selectedProject.tasks.push(newT);
-    toggleVisibility(taskForm);
+    toggleVisibility(dom.taskForm);
     renderProjects();
     projectForThisTask = document.getElementsByClassName('project-div')[indexNo];
     projectForThisTask.focus();
-    renderTasks(selectedProject);
+    renderTasks(dom.selectedProject);
     localStorage.setItem('projects', JSON.stringify(projects, getCircularReplacer()));
-    resetValue(taskName);
-    resetValue(taskDescription);
-    urgency.value = '1';
+    resetValue(dom.taskName);
+    resetValue(dom.taskDescription);
+    dom.urgency.value = '1';
   }
 
 });
 
-taskCancelButton.addEventListener('click', () => {
-  toggleVisibility(taskForm);
-  resetValue(taskName);
-  resetValue(taskDescription);
-  urgency.value = '1';
+dom.taskCancelButton.addEventListener('click', () => {
+  toggleVisibility(dom.taskForm);
+  resetValue(dom.taskName);
+  resetValue(dom.taskDescription);
+  dom.urgency.value = '1';
 });
 
 function renderTasks(proj) {
-  taskContainer.innerHTML = '';
+  dom.taskContainer.innerHTML = '';
 
   proj.tasks.forEach((element) => {
     let taskDiv = document.createElement('div');
@@ -98,7 +89,7 @@ function renderTasks(proj) {
     taskDiv.appendChild(taskDeadline);
     taskDiv.appendChild(taskTitle);
     taskDiv.appendChild(taskDescription);
-    taskContainer.appendChild(taskDiv);
+    dom.taskContainer.appendChild(taskDiv);
 
     if (element.urgency === 1) {
       taskDiv.style.border = '2px solid rgb(127,149,117)';
@@ -110,10 +101,8 @@ function renderTasks(proj) {
   });
 }
 
-const taskButton = document.getElementById('add-task');
-
-taskButton.addEventListener('click', () => {
-  toggleVisibility(taskForm);
+dom.taskButton.addEventListener('click', () => {
+  toggleVisibility(dom.taskForm);
 });
 
 export { renderTasks, getCircularReplacer };
