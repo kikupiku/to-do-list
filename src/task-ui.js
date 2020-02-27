@@ -65,6 +65,10 @@ function renderTasks(proj) {
     taskDescription.setAttribute('class', 'task-descr');
     taskDeadline.setAttribute('class', 'task-deadline');
 
+    let editButton = document.createElement('img');
+    editButton.setAttribute('src', './assets/edit.svg');
+    editButton.setAttribute('class', 'edit edit-task');
+
     taskTitle.innerHTML = element.title;
     taskDescription.innerHTML = element.description;
     if (element.deadline === '') {
@@ -88,6 +92,7 @@ function renderTasks(proj) {
 
     taskDiv.appendChild(taskDeadline);
     taskDiv.appendChild(taskTitle);
+    taskDiv.appendChild(editButton);
     taskDiv.appendChild(taskDescription);
     dom.taskContainer.appendChild(taskDiv);
 

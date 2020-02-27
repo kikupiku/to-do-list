@@ -52,7 +52,7 @@ function renderProjects() {
 
     let editButton = document.createElement('img');
     editButton.setAttribute('src', './assets/edit.svg');
-    editButton.setAttribute('class', 'edit');
+    editButton.setAttribute('class', 'edit edit-project');
 
     inbox = document.getElementById('inbox');
 
@@ -94,26 +94,27 @@ function renderProjects() {
         console.log(projectDiv);
         dom.projEditName.value = e.path[1].childNodes[2].innerHTML;
         dom.projEditDescription.value = e.path[1].lastChild.innerHTML;
-
-        dom.projUpdate.addEventListener('click', () => {
-          toggleVisibility(dom.projectEditForm);
-          projectDiv.childNodes[2].innerHTML = dom.projEditName.value;
-          projectDiv.childNodes[3].innerHTML = dom.projEditDescription.value;
-          localStorage.setItem('projects', JSON.stringify(projects, getCircularReplacer()));
-        });
-
-        dom.projUpdateCancel.addEventListener('click', () => {
-          toggleVisibility(dom.projectEditForm);
-          resetValue(projectDiv.childNodes[2]);
-          resetValue(projectDiv.childNodes[3]);
-        });
+        dom.projectEditForm.setAttribute('data-projectindex', projects.indexOf(element));
       } else {
         renderTasks(element);
       }
     });
-
   });
 }
+
+dom.projUpdate.addEventListener('click', () => {
+  toggleVisibility(dom.projectEditForm);
+  let projIndex = dom.projectEditForm.getAttribute('data-projectindex');
+  let project = projects[projIndex];
+  project.title = dom.projEditName.value;
+  project.description = dom.projEditDescription.value;
+  localStorage.setItem('projects', JSON.stringify(projects, getCircularReplacer()));
+  renderProjects();
+});
+
+dom.projUpdateCancel.addEventListener('click', () => {
+  toggleVisibility(dom.projectEditForm);
+});
 
 dom.projectButton.addEventListener('click', () => {
   toggleVisibility(dom.projectForm);
