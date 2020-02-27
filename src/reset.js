@@ -2,4 +2,8 @@ function resetValue(element) {
   element.value = '';
 };
 
-export { resetValue };
+function resetText(element) {
+  element.innerHTML = '';
+}
+
+export { resetValue, resetText };

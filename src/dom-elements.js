@@ -13,6 +13,8 @@ function getDom() {
 
   const projEditName = document.getElementById('project-edit-name');
   const projEditDescription = document.getElementById('project-edit-description');
+  const projUpdate = document.getElementById('update-project');
+  const projUpdateCancel = document.getElementById('proj-edit-cancel');
 
   const taskName = document.getElementById('task-name');
   const taskDescription = document.getElementById('task-description');
@@ -28,9 +30,9 @@ function getDom() {
 
   return { projectForm, taskForm, projectEditForm, taskEditForm, projName,
     projDescription, projectContainer, newProjectButton, projectCancelButton,
-    projEditName, projEditDescription, taskName, taskDescription, taskContainer,
-    newTaskButton, taskCancelButton, taskDeadline, urgency, projectSelection,
-    projectButton, taskButton, };
+    projEditName, projEditDescription, projUpdate, projUpdateCancel, taskName,
+    taskDescription, taskContainer, newTaskButton, taskCancelButton, taskDeadline,
+    urgency, projectSelection, projectButton, taskButton, };
 };
 
 let dom = getDom();

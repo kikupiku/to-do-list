@@ -2,7 +2,7 @@ import { toggleVisibility, taskForm } from './visibility.js';
 import { taskFactory } from './task.js';
 import { projectFactory, tasks } from './project.js';
 import { projects, renderProjects, inbox } from './project-ui.js';
-import { resetValue } from './reset.js';
+import { resetValue, resetText } from './reset.js';
 import { dom } from './dom-elements.js';
 
 const getCircularReplacer = () => {
@@ -21,19 +21,18 @@ const getCircularReplacer = () => {
 };
 
 dom.newTaskButton.addEventListener('click', () => {
-  let selectedProject;
   let projectForThisTask;
 
   if (dom.taskName.value === '') {
     alert('Please at least give your task a name');
   } else {
+    renderProjects();
     let indexNo = dom.projectSelection.selectedIndex;
-    selectedProject = projects[indexNo];
+    let selectedProject = projects[indexNo];
     let newT = taskFactory(dom.taskName.value, dom.taskDescription.value,
       dom.taskDeadline.value, dom.urgency.value);
     selectedProject.tasks.push(newT);
     toggleVisibility(dom.taskForm);
-    renderProjects();
     projectForThisTask = document.getElementsByClassName('project-div')[indexNo];
     projectForThisTask.focus();
     renderTasks(dom.selectedProject);
@@ -53,7 +52,7 @@ dom.taskCancelButton.addEventListener('click', () => {
 });
 
 function renderTasks(proj) {
-  dom.taskContainer.innerHTML = '';
+  resetText(dom.taskContainer);
 
   proj.tasks.forEach((element) => {
     let taskDiv = document.createElement('div');
@@ -75,6 +74,7 @@ function renderTasks(proj) {
     }
 
     (function () {
+      //checking if overdue
       let today = new Date();
       let tDeadline = new Date(element.deadline);
       if (tDeadline.getTime() < today.getTime()) {
@@ -110,3 +110,5 @@ export { renderTasks, getCircularReplacer };
 // TODO:
 // update (edit) INTO A NEW EDIT FORM
 //add tick box for when tasks are done
+//bugs:
+//editing projects works only once
