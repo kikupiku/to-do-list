@@ -16,8 +16,6 @@ let sampleTask = taskFactory('Test Task', 'This is a short description',
 sampleProject.tasks.push(sampleTask);
 
 let projects;
-let deleteButton;
-let editButton;
 let inbox;
 
 dom.newProjectButton.addEventListener('click', () => {
@@ -51,11 +49,11 @@ function renderProjects() {
     let projectDescription = document.createElement('p');
     let option = document.createElement('option');
 
-    deleteButton = document.createElement('img');
+    let deleteButton = document.createElement('img');
     deleteButton.setAttribute('src', './assets/delete.svg');
     deleteButton.setAttribute('class', 'delete');
 
-    editButton = document.createElement('img');
+    let editButton = document.createElement('img');
     editButton.setAttribute('src', './assets/edit.svg');
     editButton.setAttribute('class', 'edit');
 
@@ -89,7 +87,10 @@ function renderProjects() {
 
     projectDiv.addEventListener('click', (e) => {
       let arr = Array.prototype.slice.call(dom.projectContainer.childNodes);
+console.log('target', e.target)
+console.log('deleteButton', deleteButton)
       if (e.target === deleteButton) {
+              console.log('test');
         dom.projectContainer.removeChild(projectDiv);
         projects.splice(arr.indexOf(projectDiv), 1);
         localStorage.setItem('projects', JSON.stringify(projects, getCircularReplacer()));
