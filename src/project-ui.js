@@ -37,6 +37,7 @@ dom.projectCancelButton.addEventListener('click', () => {
 
 function renderProjects() {
   resetText(dom.projectSelection);
+  resetText(dom.editProjectSelection);
   resetText(dom.projectContainer);
   renderTasks(projects[0]);
 
@@ -45,6 +46,7 @@ function renderProjects() {
     let projectTitle = document.createElement('p');
     let projectDescription = document.createElement('p');
     let option = document.createElement('option');
+    let optionForEdit = document.createElement('option');
 
     let deleteButton = document.createElement('img');
     deleteButton.setAttribute('src', './assets/delete.svg');
@@ -64,8 +66,10 @@ function renderProjects() {
       projectDiv.appendChild(editButton);
     }
 
-    option.innerHTML = element.title;
+    option.textContent = element.title;
+    optionForEdit.textContent = element.title;
     dom.projectSelection.appendChild(option);
+    dom.editProjectSelection.appendChild(optionForEdit);
 
     projectDiv.setAttribute('class', 'project-div');
     projectTitle.setAttribute('class', 'project-title');
@@ -86,12 +90,9 @@ function renderProjects() {
         dom.projectContainer.removeChild(projectDiv);
         projects.splice(arr.indexOf(projectDiv), 1);
         localStorage.setItem('projects', JSON.stringify(projects, getCircularReplacer()));
-        inbox.focus();
-        dom.projectSelection.removeChild(option);
-        renderTasks(projects[0]);
+        renderProjects();
       } else if (e.target === editButton) {
         toggleVisibility(dom.projectEditForm);
-        console.log(projectDiv);
         dom.projEditName.value = e.path[1].childNodes[2].innerHTML;
         dom.projEditDescription.value = e.path[1].lastChild.innerHTML;
         dom.projectEditForm.setAttribute('data-projectindex', projects.indexOf(element));

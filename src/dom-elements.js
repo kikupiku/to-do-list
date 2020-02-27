@@ -25,6 +25,14 @@ function getDom() {
   const urgency = document.getElementById('urgency');
   const projectSelection = document.getElementById('assign-project');
 
+  const taskEditName = document.getElementById('task-edit-name');
+  const taskEditDescription = document.getElementById('task-edit-description');
+  const taskEditDeadline = document.getElementById('edit-deadline');
+  const editProjectSelection = document.getElementById('edit-assign-project');
+  const editUrgency = document.getElementById('edit-urgency');
+  const taskUpdate = document.getElementById('update-task');
+  const taskUpdateCancel = document.getElementById('task-edit-cancel');
+
   const projectButton = document.getElementById('add-project');
   const taskButton = document.getElementById('add-task');
 
@@ -32,7 +40,8 @@ function getDom() {
     projDescription, projectContainer, newProjectButton, projectCancelButton,
     projEditName, projEditDescription, projUpdate, projUpdateCancel, taskName,
     taskDescription, taskContainer, newTaskButton, taskCancelButton, taskDeadline,
-    urgency, projectSelection, projectButton, taskButton, };
+    urgency, projectSelection, taskEditName, taskEditDescription, taskEditDeadline,
+    editProjectSelection, editUrgency, taskUpdate, taskUpdateCancel, projectButton, taskButton, };
 };
 
 let dom = getDom();

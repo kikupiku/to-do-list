@@ -71,6 +71,7 @@ function renderTasks(proj) {
 
     taskTitle.innerHTML = element.title;
     taskDescription.innerHTML = element.description;
+
     if (element.deadline === '') {
       taskDeadline.innerHTML = 'Deadline not determined';
     } else {
@@ -103,11 +104,25 @@ function renderTasks(proj) {
     } else if (element.urgency === 3) {
       taskDiv.style.border = '2px solid rgb(205,80,87)';
     }
+
+    editButton.addEventListener('click', (e) => {
+      toggleVisibility(dom.taskEditForm);
+
+      dom.taskEditName.value = element.title;
+      dom.taskEditDescription.value = element.description;
+      dom.taskEditDeadline.value = element.deadline;
+      dom.editProjectSelection = 
+      dom.editUrgency.value = element.urgency;
+    });
   });
 }
 
 dom.taskButton.addEventListener('click', () => {
   toggleVisibility(dom.taskForm);
+});
+
+dom.taskUpdateCancel.addEventListener('click', () => {
+  toggleVisibility(dom.taskEditForm);
 });
 
 export { renderTasks, getCircularReplacer };
@@ -116,4 +131,3 @@ export { renderTasks, getCircularReplacer };
 // update (edit) INTO A NEW EDIT FORM
 //add tick box for when tasks are done
 //bugs:
-//editing projects works only once

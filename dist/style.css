@@ -191,8 +191,12 @@ div.project-div:focus {
   display: inline-block;
 }
 
-img.edit-task {
+.edit-task {
   margin-left: 10px;
+}
+
+.edit-task:hover {
+  cursor: pointer;
 }
 
 .project-title,
