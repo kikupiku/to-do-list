@@ -8,7 +8,8 @@ import { dom } from './dom-elements.js';
 let sampleProject = projectFactory('Inbox',
                       'This project contains all tasks that have not been assigned elsewhere.');
 
-let sampleTask = taskFactory('Test Task', 'This is a short description',
+let sampleTask = taskFactory('Example Task (click me)',
+      'This task is here to show you how this page works. Feel free to edit it,or delete it by marking it as done by ticking the checkbox on the left.',
                           '2020-01-01', 3);
 
 let sampleTask2 = taskFactory('Test Task2', 'This is a short description2',

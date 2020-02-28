@@ -184,9 +184,8 @@ dom.taskUpdateCancel.addEventListener('click', () => {
 
 export { renderTasks, getCircularReplacer };
 
-// TODO:
-//add tick box for when tasks are done
 //bugs:
 // new task doesn't render
+
 // if assigned project of task gets changed, it doesn't disappear
 // from previous project, but gets ADDED to the new one
