@@ -116,7 +116,9 @@ function renderTasks(proj) {
 
     checkBoxContainer.addEventListener('click', () => {
       checkBox.style.transform = 'translateY(0)';
-      let fadeEffect = setInterval (() => {
+      let taskIndex = proj.tasks.indexOf(element);
+      proj.tasks.splice(taskIndex, 1);
+      let fadeEffect = setInterval(() => {
         if (!taskDiv.style.opacity) {
           taskDiv.style.opacity = 1;
         }
@@ -124,10 +126,12 @@ function renderTasks(proj) {
         if (taskDiv.style.opacity > 0) {
           taskDiv.style.opacity -= 0.1;
         } else {
+          renderTasks(proj);
           clearInterval(fadeEffect);
         }
+        localStorage.setItem('projects', JSON.stringify(projects, getCircularReplacer()));
+      }, 60);
 
-      }, 100);
     });
   });
 }
