@@ -28,6 +28,7 @@ dom.newTaskButton.addEventListener('click', () => {
   } else {
     renderProjects();
     let indexNo = dom.projectSelection.selectedIndex;
+    console.log(dom.projectSelection.selectedIndex);
     let selectedProject = projects[indexNo];
     let newT = taskFactory(dom.taskName.value, dom.taskDescription.value,
       dom.taskDeadline.value, dom.urgency.value);
@@ -35,7 +36,7 @@ dom.newTaskButton.addEventListener('click', () => {
     toggleVisibility(dom.taskForm);
     projectForThisTask = document.getElementsByClassName('project-div')[indexNo];
     projectForThisTask.focus();
-    renderTasks(dom.selectedProject);
+    renderTasks(selectedProject);
     localStorage.setItem('projects', JSON.stringify(projects, getCircularReplacer()));
     resetValue(dom.taskName);
     resetValue(dom.taskDescription);
@@ -69,6 +70,13 @@ function renderTasks(proj) {
     editButton.setAttribute('src', './assets/edit.svg');
     editButton.setAttribute('class', 'edit edit-task');
 
+    let checkBoxContainer = document.createElement('div');
+    checkBoxContainer.setAttribute('class', 'checkbox-container');
+
+    let checkBox = document.createElement('img');
+    checkBox.setAttribute('src', './assets/checkbox.png');
+    checkBox.setAttribute('class', 'checkbox');
+
     taskTitle.innerHTML = element.title;
     taskDescription.innerHTML = element.description;
 
@@ -78,23 +86,15 @@ function renderTasks(proj) {
       taskDeadline.innerHTML = 'Deadline: ' + element.deadline;
     }
 
-    (function () {
-      //checking if overdue
-      let today = new Date();
-      let tDeadline = new Date(element.deadline);
-      if (tDeadline.getTime() < today.getTime()) {
-        let overdueDiv = document.createElement('div');
-        overdueDiv.setAttribute('class', 'overdue');
-        overdueDiv.innerHTML = 'OVERDUE';
-        taskDiv.appendChild(overdueDiv);
-        taskDeadline.style.color = 'rgb(205,80,87)';
-      }
-    })();
+    checkIfOverdue(element, taskDiv, taskDeadline);
 
     taskDiv.appendChild(taskDeadline);
     taskDiv.appendChild(taskTitle);
     taskDiv.appendChild(editButton);
     taskDiv.appendChild(taskDescription);
+    checkBoxContainer.appendChild(checkBox);
+    taskDiv.appendChild(checkBoxContainer);
+
     dom.taskContainer.appendChild(taskDiv);
 
     if (element.urgency === 1) {
@@ -107,15 +107,68 @@ function renderTasks(proj) {
 
     editButton.addEventListener('click', (e) => {
       toggleVisibility(dom.taskEditForm);
-
       dom.taskEditName.value = element.title;
       dom.taskEditDescription.value = element.description;
       dom.taskEditDeadline.value = element.deadline;
-      dom.editProjectSelection = 
       dom.editUrgency.value = element.urgency;
+      dom.projectEditForm.setAttribute('data-taskindex', proj.tasks.indexOf(element));
+    });
+
+    checkBoxContainer.addEventListener('click', () => {
+      checkBox.style.transform = 'translateY(0)';
+      let fadeEffect = setInterval (() => {
+        if (!taskDiv.style.opacity) {
+          taskDiv.style.opacity = 1;
+        }
+
+        if (taskDiv.style.opacity > 0) {
+          taskDiv.style.opacity -= 0.1;
+        } else {
+          clearInterval(fadeEffect);
+        }
+
+      }, 100);
     });
   });
 }
+
+function checkIfOverdue(task, div, deadlineDiv) {
+  //checking if overdue
+  let today = new Date();
+  let tDeadline = new Date(task.deadline);
+  let overdueDiv = document.createElement('div');
+  div.appendChild(overdueDiv);
+  overdueDiv.setAttribute('class', 'overdue');
+  if (tDeadline.getTime() < today.getTime()) {
+    overdueDiv.innerHTML = 'OVERDUE';
+    deadlineDiv.style.color = 'rgb(205,80,87)';
+  }
+};
+
+dom.taskUpdate.addEventListener('click', () => {
+  let indexNo = dom.editProjectSelection.selectedIndex;
+  let projectForThisTask = projects[indexNo];
+  console.log(projectForThisTask);
+  if (dom.taskEditName.value === '') {
+    alert('Please at least let your task keep a name');
+  } else {
+    toggleVisibility(dom.taskEditForm);
+    let taskIndex = dom.projectEditForm.getAttribute('data-taskindex');
+    let task = dom.taskContainer.childNodes[taskIndex];
+    let deadlineText;
+    if (dom.taskEditDeadline.value === '') {
+      deadlineText = 'Deadline not determined';
+    } else {
+      deadlineText = dom.taskEditDeadline.value;
+    }
+
+    checkIfOverdue(projectForThisTask, task, task.childNodes[1]);
+    projectForThisTask.tasks.splice(taskIndex, 1, taskFactory(dom.taskEditName.value,
+       dom.taskEditDescription.value, deadlineText, dom.editUrgency.value));
+    renderTasks(projectForThisTask);
+    localStorage.setItem('projects', JSON.stringify(projects, getCircularReplacer()));
+  }
+});
 
 dom.taskButton.addEventListener('click', () => {
   toggleVisibility(dom.taskForm);
@@ -128,6 +181,8 @@ dom.taskUpdateCancel.addEventListener('click', () => {
 export { renderTasks, getCircularReplacer };
 
 // TODO:
-// update (edit) INTO A NEW EDIT FORM
 //add tick box for when tasks are done
 //bugs:
+// new task doesn't render
+// if assigned project of task gets changed, it doesn't disappear
+// from previous project, but gets ADDED to the new one

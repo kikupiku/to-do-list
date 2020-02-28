@@ -11,7 +11,11 @@ let sampleProject = projectFactory('Inbox',
 let sampleTask = taskFactory('Test Task', 'This is a short description',
                           '2020-01-01', 3);
 
+let sampleTask2 = taskFactory('Test Task2', 'This is a short description2',
+                                                    '2020-06-05', 2);
+
 sampleProject.tasks.push(sampleTask);
+sampleProject.tasks.push(sampleTask2);
 
 let projects;
 let inbox;
@@ -37,6 +41,7 @@ dom.projectCancelButton.addEventListener('click', () => {
 
 function renderProjects() {
   resetText(dom.projectSelection);
+
   resetText(dom.editProjectSelection);
   resetText(dom.projectContainer);
   renderTasks(projects[0]);
@@ -85,10 +90,8 @@ function renderProjects() {
     dom.projectContainer.appendChild(projectDiv);
 
     projectDiv.addEventListener('click', (e) => {
-      let arr = Array.prototype.slice.call(dom.projectContainer.childNodes);
       if (e.target === deleteButton) {
-        dom.projectContainer.removeChild(projectDiv);
-        projects.splice(arr.indexOf(projectDiv), 1);
+        projects.splice(projects.indexOf(element), 1);
         localStorage.setItem('projects', JSON.stringify(projects, getCircularReplacer()));
         renderProjects();
       } else if (e.target === editButton) {
@@ -104,13 +107,17 @@ function renderProjects() {
 }
 
 dom.projUpdate.addEventListener('click', () => {
-  toggleVisibility(dom.projectEditForm);
-  let projIndex = dom.projectEditForm.getAttribute('data-projectindex');
-  let project = projects[projIndex];
-  project.title = dom.projEditName.value;
-  project.description = dom.projEditDescription.value;
-  localStorage.setItem('projects', JSON.stringify(projects, getCircularReplacer()));
-  renderProjects();
+  if (dom.projEditName.value === '') {
+    alert('Please, at least let the project keep a name');
+  } else {
+    toggleVisibility(dom.projectEditForm);
+    let projIndex = dom.projectEditForm.getAttribute('data-projectindex');
+    let project = projects[projIndex];
+    project.title = dom.projEditName.value;
+    project.description = dom.projEditDescription.value;
+    localStorage.setItem('projects', JSON.stringify(projects, getCircularReplacer()));
+    renderProjects();
+  }
 });
 
 dom.projUpdateCancel.addEventListener('click', () => {
