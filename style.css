@@ -235,7 +235,8 @@ div.project-div:focus {
 }
 
 .task-descr {
-    width: 60%;
+  width: 60%;
+  display: none;
 }
 
 .project-title:hover,
