@@ -86,8 +86,6 @@ function renderTasks(proj) {
       taskDeadline.innerHTML = 'Deadline: ' + element.deadline;
     }
 
-    checkIfOverdue(element, taskDiv, taskDeadline);
-
     taskDiv.appendChild(taskDeadline);
     taskDiv.appendChild(taskTitle);
     taskDiv.appendChild(editButton);
@@ -96,6 +94,8 @@ function renderTasks(proj) {
     taskDiv.appendChild(checkBoxContainer);
 
     dom.taskContainer.appendChild(taskDiv);
+
+    checkIfOverdue(element, taskDeadline);
 
     if (element.urgency === 1) {
       taskDiv.style.border = '2px solid rgb(127,149,117)';
@@ -129,25 +129,42 @@ function renderTasks(proj) {
           renderTasks(proj);
           clearInterval(fadeEffect);
         }
+
         localStorage.setItem('projects', JSON.stringify(projects, getCircularReplacer()));
       }, 60);
 
     });
+
+    taskTitle.addEventListener('click', () => {
+      toggleVisibility(taskDescription);
+      addOverdueDiv(element, taskDiv);
+    });
   });
 }
 
-function checkIfOverdue(task, div, deadlineDiv) {
-  //checking if overdue
+function checkIfOverdue(task, deadlineDiv) {
   let today = new Date();
   let tDeadline = new Date(task.deadline);
-  let overdueDiv = document.createElement('div');
-  div.appendChild(overdueDiv);
-  overdueDiv.setAttribute('class', 'overdue');
   if (tDeadline.getTime() < today.getTime()) {
-    overdueDiv.innerHTML = 'OVERDUE';
     deadlineDiv.style.color = 'rgb(205,80,87)';
   }
 };
+
+function addOverdueDiv(task, div) {
+  let today = new Date();
+  let tDeadline = new Date(task.deadline);
+  if (div.contains(document.getElementsByClassName('overdue')[0])) {
+    div.removeChild(document.getElementsByClassName('overdue')[0]);
+  } else {
+    let overdueDiv = document.createElement('div');
+    div.appendChild(overdueDiv);
+    console.log(div);
+    overdueDiv.setAttribute('class', 'overdue');
+    if (tDeadline.getTime() < today.getTime()) {
+      overdueDiv.innerHTML = 'OVERDUE';
+    }
+  }
+}
 
 dom.taskUpdate.addEventListener('click', () => {
   let indexNo = dom.editProjectSelection.selectedIndex;
