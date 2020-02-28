@@ -5,18 +5,19 @@ import { taskFactory, taskForm } from './task.js';
 import { resetValue, resetText } from './reset.js';
 import { dom } from './dom-elements.js';
 
-let sampleProject = projectFactory('Inbox',
+let inboxProject = projectFactory('Inbox',
                       'This project contains all tasks that have not been assigned elsewhere.');
+let exampleProject = projectFactory('Example project',
+                      'Unlike the inbox, you can edit or delete this project. Click it to see if it has any tasks');
 
 let sampleTask = taskFactory('Example Task (click me)',
-      'This task is here to show you how this page works. Feel free to edit it,or delete it by marking it as done by ticking the checkbox on the left.',
+      'Welcome to "TO GET DONE"! This task is here to show you how this page works. It belongs to the inbox, which is currently active. Check out the example project to see the tasks it contains. Feel free to edit this task, or get rid of it by marking it as done (do to that tick the checkbox on the left).',
                           '2020-01-01', 3);
 
-let sampleTask2 = taskFactory('Test Task2', 'This is a short description2',
-                                                    '2020-06-05', 2);
+let sampleTask2 = taskFactory('Not so urgent task', 'This task exists to show you how it looks when you assign tasks to different projects', '2020-06-05', 2);
 
-sampleProject.tasks.push(sampleTask);
-sampleProject.tasks.push(sampleTask2);
+inboxProject.tasks.push(sampleTask);
+exampleProject.tasks.push(sampleTask2);
 
 let projects;
 let inbox;
@@ -67,7 +68,7 @@ function renderProjects() {
     if (element === projects[0]) {
       projectDiv.setAttribute('id', 'inbox');
     } else {
-      inbox.focus();
+      toggleActiveProject(projects[0], dom.projectContainer.childNodes[0]);
       projectDiv.appendChild(deleteButton);
       projectDiv.appendChild(editButton);
     }
@@ -101,7 +102,7 @@ function renderProjects() {
         dom.projEditDescription.value = e.path[1].lastChild.innerHTML;
         dom.projectEditForm.setAttribute('data-projectindex', projects.indexOf(element));
       } else {
-        renderTasks(element);
+        toggleActiveProject(element, projectDiv);
       }
     });
   });
@@ -129,11 +130,19 @@ dom.projectButton.addEventListener('click', () => {
   toggleVisibility(dom.projectForm);
 });
 
+function toggleActiveProject(project, projectDiv) {
+  renderTasks(project);
+  dom.projectContainer.childNodes.forEach((projectDiv) => {
+    projectDiv.style.background = 'rgb(117,137,149)';
+  });
+  projectDiv.style.background = 'rgba(117,137,149,.7)';
+}
+
 if (!JSON.parse(localStorage.getItem('projects'))) {
-  projects = [sampleProject];
+  projects = [inboxProject, exampleProject];
 } else {
   let storedProjects = JSON.parse(localStorage.getItem('projects'));
   projects = storedProjects;
 }
 
-export { projects, sampleProject, renderProjects, inbox };
+export { projects, inboxProject, exampleProject, renderProjects, inbox };

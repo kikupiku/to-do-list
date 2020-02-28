@@ -1,3 +1,3 @@
-import { renderProjects } from './project-ui.js';
+import { renderProjects, inboxProject, exampleProject } from './project-ui.js';
 
 renderProjects();

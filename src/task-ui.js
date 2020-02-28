@@ -1,6 +1,6 @@
-import { toggleVisibility, taskForm } from './visibility.js';
+import { toggleVisibility } from './visibility.js';
 import { taskFactory } from './task.js';
-import { projectFactory, tasks } from './project.js';
+import { projectFactory } from './project.js';
 import { projects, renderProjects, inbox } from './project-ui.js';
 import { resetValue, resetText } from './reset.js';
 import { dom } from './dom-elements.js';
@@ -22,20 +22,19 @@ const getCircularReplacer = () => {
 
 dom.newTaskButton.addEventListener('click', () => {
   let projectForThisTask;
+  console.log(dom.taskName);
 
   if (dom.taskName.value === '') {
     alert('Please at least give your task a name');
   } else {
-    renderProjects();
     let indexNo = dom.projectSelection.selectedIndex;
-    console.log(dom.projectSelection.selectedIndex);
     let selectedProject = projects[indexNo];
     let newT = taskFactory(dom.taskName.value, dom.taskDescription.value,
       dom.taskDeadline.value, dom.urgency.value);
     selectedProject.tasks.push(newT);
     toggleVisibility(dom.taskForm);
     projectForThisTask = document.getElementsByClassName('project-div')[indexNo];
-    projectForThisTask.focus();
+    renderProjects();
     renderTasks(selectedProject);
     localStorage.setItem('projects', JSON.stringify(projects, getCircularReplacer()));
     resetValue(dom.taskName);
@@ -136,6 +135,7 @@ function renderTasks(proj) {
     });
 
     taskTitle.addEventListener('click', () => {
+
       toggleVisibility(taskDescription);
       addOverdueDiv(element, taskDiv);
     });
@@ -158,7 +158,6 @@ function addOverdueDiv(task, div) {
   } else {
     let overdueDiv = document.createElement('div');
     div.appendChild(overdueDiv);
-    console.log(div);
     overdueDiv.setAttribute('class', 'overdue');
     if (tDeadline.getTime() < today.getTime()) {
       overdueDiv.innerHTML = 'OVERDUE';
@@ -169,7 +168,6 @@ function addOverdueDiv(task, div) {
 dom.taskUpdate.addEventListener('click', () => {
   let indexNo = dom.editProjectSelection.selectedIndex;
   let projectForThisTask = projects[indexNo];
-  console.log(projectForThisTask);
   if (dom.taskEditName.value === '') {
     alert('Please at least let your task keep a name');
   } else {
@@ -202,7 +200,5 @@ dom.taskUpdateCancel.addEventListener('click', () => {
 export { renderTasks, getCircularReplacer };
 
 //bugs:
-// new task doesn't render
-
 // if assigned project of task gets changed, it doesn't disappear
 // from previous project, but gets ADDED to the new one
