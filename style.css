@@ -28,6 +28,7 @@ h2 {
   padding: 5px;
   overflow-y: scroll;
   -ms-overflow-style: none;
+  min-width: 190px;
 }
 
 #project-wrapper::-webkit-scrollbar,
@@ -223,16 +224,25 @@ div.project-div:focus {
   text-transform: uppercase;
 }
 
+.project-title {
+  width: 95px;
+
+}
+
 .task-title,
 .task-descr {
   margin-left: 30px;
 }
 
+.task-descr {
+    width: 60%;
+}
+
 .project-title:hover,
 .task-title:hover,
 button:hover {
-  text-decoration: none;
   cursor: pointer;
+  text-decoration: none;
 }
 
 .project-descr,
@@ -250,6 +260,7 @@ button:hover {
   border-radius: 5px;
   margin-top: 5px;
   margin-left: 15px;
+  min-width: 500px;
   width: 60vw;
   padding-left: 15px;
   position: relative;
