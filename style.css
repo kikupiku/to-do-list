@@ -195,8 +195,23 @@ div.project-div:focus {
   margin-left: 10px;
 }
 
-.edit-task:hover {
+.edit-task:hover,
+.checkbox:hover {
   cursor: pointer;
+}
+
+.checkbox-container {
+  height: 20px;
+  overflow-y: hidden;
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  margin-top: -10px;
+}
+
+.checkbox {
+  height: 40px;
+  transform: translateY(-20px);
 }
 
 .project-title,
@@ -206,6 +221,11 @@ div.project-div:focus {
   font-size: 16px;
   padding-top: 5px;
   text-transform: uppercase;
+}
+
+.task-title,
+.task-descr {
+  margin-left: 30px;
 }
 
 .project-title:hover,
