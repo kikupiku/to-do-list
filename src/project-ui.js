@@ -1,7 +1,7 @@
 import { toggleVisibility, projectForm, projectEditForm } from './visibility.js';
 import { projectFactory } from './project.js';
 import { renderTasks, getCircularReplacer } from './task-ui.js';
-import { taskFactory, taskForm } from './task.js';
+import { taskFactory } from './task.js';
 import { resetValue, resetText } from './reset.js';
 import { dom } from './dom-elements.js';
 
@@ -145,4 +145,4 @@ if (!JSON.parse(localStorage.getItem('projects'))) {
   projects = storedProjects;
 }
 
-export { projects, inboxProject, exampleProject, renderProjects, inbox };
+export { projects, inboxProject, exampleProject, renderProjects, inbox, toggleActiveProject };

@@ -1,7 +1,7 @@
 import { toggleVisibility } from './visibility.js';
 import { taskFactory } from './task.js';
 import { projectFactory } from './project.js';
-import { projects, renderProjects, inbox } from './project-ui.js';
+import { projects, toggleActiveProject } from './project-ui.js';
 import { resetValue, resetText } from './reset.js';
 import { dom } from './dom-elements.js';
 
@@ -21,27 +21,29 @@ const getCircularReplacer = () => {
 };
 
 dom.newTaskButton.addEventListener('click', () => {
-  let projectForThisTask;
   console.log(dom.taskName);
+  let indexNo;
+  let selectedProject;
 
   if (dom.taskName.value === '') {
     alert('Please at least give your task a name');
   } else {
-    let indexNo = dom.projectSelection.selectedIndex;
-    let selectedProject = projects[indexNo];
+    indexNo = dom.projectSelection.selectedIndex;
+    console.log(indexNo);
+    selectedProject = projects[indexNo];
+    console.log(selectedProject);
     let newT = taskFactory(dom.taskName.value, dom.taskDescription.value,
       dom.taskDeadline.value, dom.urgency.value);
     selectedProject.tasks.push(newT);
     toggleVisibility(dom.taskForm);
-    projectForThisTask = document.getElementsByClassName('project-div')[indexNo];
-    renderProjects();
+    let projectForThisTask = document.getElementsByClassName('project-div')[indexNo];
+    toggleActiveProject(selectedProject, dom.projectContainer.childNodes[indexNo]);
     renderTasks(selectedProject);
     localStorage.setItem('projects', JSON.stringify(projects, getCircularReplacer()));
     resetValue(dom.taskName);
     resetValue(dom.taskDescription);
     dom.urgency.value = '1';
   }
-
 });
 
 dom.taskCancelButton.addEventListener('click', () => {
@@ -110,7 +112,11 @@ function renderTasks(proj) {
       dom.taskEditDescription.value = element.description;
       dom.taskEditDeadline.value = element.deadline;
       dom.editUrgency.value = element.urgency;
-      dom.projectEditForm.setAttribute('data-taskindex', proj.tasks.indexOf(element));
+      let whichProjBeforeEdit = proj;
+      dom.editProjectSelection.value = whichProjBeforeEdit.title;
+      console.log(whichProjBeforeEdit);
+      dom.taskEditForm.setAttribute('data-taskindex', proj.tasks.indexOf(element));
+      dom.taskEditForm.setAttribute('data-projectindex', projects.indexOf(whichProjBeforeEdit));
     });
 
     checkBoxContainer.addEventListener('click', () => {
@@ -166,25 +172,34 @@ function addOverdueDiv(task, div) {
 }
 
 dom.taskUpdate.addEventListener('click', () => {
-  let indexNo = dom.editProjectSelection.selectedIndex;
-  let projectForThisTask = projects[indexNo];
+  let newProjectIndexNo = dom.editProjectSelection.selectedIndex;
+  let newlyAssignedProject = projects[newProjectIndexNo];
+  let oldProjectIndexNo = Number(dom.taskEditForm.getAttribute('data-projectindex'));
+  let oldProject = projects[oldProjectIndexNo];
   if (dom.taskEditName.value === '') {
     alert('Please at least let your task keep a name');
   } else {
     toggleVisibility(dom.taskEditForm);
-    let taskIndex = dom.projectEditForm.getAttribute('data-taskindex');
-    let task = dom.taskContainer.childNodes[taskIndex];
-    let deadlineText;
+    let taskIndexInOldProject = Number(dom.taskEditForm.getAttribute('data-taskindex'));
+    let task = oldProject.tasks[taskIndexInOldProject];
+
+    task.title = dom.taskEditName.value;
+    task.description = dom.taskEditDescription.value;
+
     if (dom.taskEditDeadline.value === '') {
-      deadlineText = 'Deadline not determined';
+      task.deadline = 'Deadline not determined';
     } else {
-      deadlineText = dom.taskEditDeadline.value;
+      task.deadline = dom.taskEditDeadline.value;
     }
 
-    checkIfOverdue(projectForThisTask, task, task.childNodes[1]);
-    projectForThisTask.tasks.splice(taskIndex, 1, taskFactory(dom.taskEditName.value,
-       dom.taskEditDescription.value, deadlineText, dom.editUrgency.value));
-    renderTasks(projectForThisTask);
+    task.urgency = Number(dom.editUrgency.value);
+
+    if (newlyAssignedProject !== oldProject) {
+      oldProject.tasks.splice(taskIndexInOldProject, 1);
+      newlyAssignedProject.tasks.push(task);
+    }
+
+    toggleActiveProject(newlyAssignedProject, dom.projectContainer.childNodes[newProjectIndexNo]);
     localStorage.setItem('projects', JSON.stringify(projects, getCircularReplacer()));
   }
 });
@@ -198,7 +213,3 @@ dom.taskUpdateCancel.addEventListener('click', () => {
 });
 
 export { renderTasks, getCircularReplacer };
-
-//bugs:
-// if assigned project of task gets changed, it doesn't disappear
-// from previous project, but gets ADDED to the new one
