@@ -8,6 +8,6 @@ Make projects, add tasks with deadlines and three levels of urgency. Click on ta
 
 It incorporates Local Storage to save the data.
 
-Live version of the project available **[HERE](https://kikupiku.github.io/to-do-list/)
+Live version of the project available **[HERE](https://kikupiku.github.io/to-do-list/)**
 
 ![gif on the project in action](https://res.cloudinary.com/kikupiku/image/upload/v1597065130/project-gifs/to-do-list_msitq0.gif)
