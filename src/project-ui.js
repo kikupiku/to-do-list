@@ -2,7 +2,7 @@ import { toggleVisibility, projectForm, projectEditForm } from './visibility.js'
 import { projectFactory } from './project.js';
 import { renderTasks, getCircularReplacer } from './task-ui.js';
 import { taskFactory } from './task.js';
-import { resetValue, resetText } from './reset.js';
+import { resetValue, resetText } from './rese.js';
 import { dom } from './dom-elements.js';
 
 let inboxProject = projectFactory('Inbox',
