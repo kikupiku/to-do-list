@@ -10,4 +10,4 @@ It incorporates Local Storage to save the data.
 
 Live version of the project available **[HERE](https://kikupiku.github.io/to-do-list/)**
 
-![gif on the project in action](https://res.cloudinary.com/kikupiku/image/upload/v1597065130/project-gifs/to-do-list_msitq0.gif)
+![gif on the project in action](https://res.cloudinary.com/kikupiku/image/upload/v1602938300/project-gifs/to-do-list_exmnoj.gif)
